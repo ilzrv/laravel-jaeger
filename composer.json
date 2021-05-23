@@ -1,0 +1,26 @@
+{
+    "name": "ilzrv/laravel-jaeger",
+    "description": "Laravel Jaeger",
+    "require": {
+        "jukylin/jaeger-php": "dev-dev_v3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ilia Lazarev",
+            "email": "me@ilzrv.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ilzrv\\LaravelJaeger\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ilzrv\\LaravelJaeger\\ServiceProvider"
+            ]
+        }
+    }
+}
