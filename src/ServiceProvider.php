@@ -8,11 +8,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Connection;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Http\Request;
 use Illuminate\Log\Events\MessageLogged;
 use Jaeger\Config;
 use Psr\Http\Message\RequestInterface;
+use Psr\Log\LoggerInterface;
 
 final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -154,13 +156,13 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
             }
         );
 
-        /** @var \Illuminate\Database\Connection $connection */
-        $connection = $this->app->make(\Illuminate\Database\Connection::class);
+        /** @var Connection $connection */
+        $connection = $this->app->make(Connection::class);
 
         $connection->listen(
             function ($query) {
-                /** @var \Illuminate\Log\LogManager $logger */
-                $logger = $this->app->make(\Illuminate\Log\LogManager::class);
+                /** @var LoggerInterface $logger */
+                $logger = $this->app->make(LoggerInterface::class);
 
                 $logger->debug(
                     "[DB Query] {$query->connection->getName()}",
